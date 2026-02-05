@@ -13,22 +13,12 @@ public class CourseRepository {
     }
 
     public List<Course> getCourses() {
-        return courses;
-    }
-
-    public Course removeCourse(Long courseId) {
-        for (Course course : courses) {
-            if (course.getId().equals(courseId)) {
-                courses.remove(course);
-                return course;
-            }
-        }
-        return null;
+        return courses.stream().filter(Course::isActive).toList();
     }
 
     public Course getCourseById(Long courseId) {
         for (Course course : courses) {
-            if (course.getId().equals(courseId)) {
+            if (course.getId().equals(courseId) && course.isActive()) {
                 return course;
             }
         }

@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface IEnrollmentService {
     void enrollStudentInCourse(Student student, Course course, String enrollmentDate);
-    Enrollment viewEnrollmentsByStudent(Student student);
+    List<Enrollment> viewEnrollmentsByStudent(Student student);
     void setEnrollmentStatus(Enrollment enrollmentId, EnrollmentStatus status);
-    Enrollment findEnrollmentByCourse(Course course);
+    List<Enrollment> findEnrollmentByCourse(Long courseId);
+    List<Enrollment> getAllEnrollments();
 }

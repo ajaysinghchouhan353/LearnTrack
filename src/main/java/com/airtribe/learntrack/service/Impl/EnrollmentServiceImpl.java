@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EnrollmentServiceImpl implements IEnrollmentService {
 
-    private EnrollmentRepository enrollmentRepository;
+    private final EnrollmentRepository enrollmentRepository;
 
     public EnrollmentServiceImpl() {
         this.enrollmentRepository = new EnrollmentRepository();
@@ -24,8 +24,8 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public Enrollment viewEnrollmentsByStudent(Student student) {
-        return this.enrollmentRepository.findEnrollmentByStudentId(student);
+    public List<Enrollment> viewEnrollmentsByStudent(Student student) {
+        return this.enrollmentRepository.findEnrollmentByStudent(student);
     }
 
     @Override
@@ -34,7 +34,12 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public Enrollment findEnrollmentByCourse(Course course) {
-        return this.enrollmentRepository.findEnrollmentByCourseId(course.getId());
+    public List<Enrollment> findEnrollmentByCourse(Long courseId) {
+        return this.enrollmentRepository.findEnrollmentByCourseId(courseId);
+    }
+
+    @Override
+    public List<Enrollment> getAllEnrollments() {
+        return this.enrollmentRepository.getAllEnrollments();
     }
 }

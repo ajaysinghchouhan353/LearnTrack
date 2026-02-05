@@ -14,12 +14,12 @@ public class StudentRepository {
     }
 
     public List<Student> getStudents() {
-        return students;
+        return students.stream().filter(Student::isActive).toList();
     }
 
     public Student getStudentById(Long studentId) {
         for (Student student : students) {
-            if (student.getStudentID().equals(studentId)) {
+            if (student.getStudentID().equals(studentId) && student.isActive()) {
                 return student;
             }
         }
@@ -38,7 +38,7 @@ public class StudentRepository {
 
     public boolean updateStudent(Student student) {
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getStudentID().equals(student.getStudentID())) {
+            if (students.get(i).getStudentID().equals(student.getStudentID()) && students.get(i).isActive()) {
                 students.set(i, student);
                 return true;
             }

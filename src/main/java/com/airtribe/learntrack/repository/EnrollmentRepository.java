@@ -6,6 +6,7 @@ import com.airtribe.learntrack.enums.EnrollmentStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EnrollmentRepository {
     List<Enrollment> enrollments = new ArrayList<>();
@@ -19,24 +20,31 @@ public class EnrollmentRepository {
     }
 
     public void updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus) {
-        enrollment.setStatus(newStatus);
+        for(Enrollment e: enrollments) {
+            if(e.getId().equals(enrollment.getId())) {
+                e.setStatus(newStatus);
+                break;
+            }
+        }
     }
 
-    public Enrollment findEnrollmentByStudentId(Student student) {
+    public List<Enrollment> findEnrollmentByStudent(Student student) {
+        List<Enrollment> enrollmentList = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
             if (enrollment.getStudent().equals(student)) {
-                return enrollment;
+                enrollmentList.add(enrollment);
             }
         }
-        return null;
+        return enrollmentList;
     }
 
-    public Enrollment findEnrollmentByCourseId(Long courseID) {
+    public List<Enrollment> findEnrollmentByCourseId(Long courseId) {
+        List<Enrollment> enrollmentList = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
-            if (enrollment.getCourseID().equals(courseID)) {
-                return enrollment;
+            if (Objects.equals(enrollment.getCourse().getId(), courseId)) {
+                enrollmentList.add(enrollment);
             }
         }
-        return null;
+        return enrollmentList;
     }
 }
