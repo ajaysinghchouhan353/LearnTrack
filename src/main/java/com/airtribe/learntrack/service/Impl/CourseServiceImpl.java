@@ -10,37 +10,39 @@ public class CourseServiceImpl implements ICourseService {
 
     private CourseRepository courseRepository;
 
-    CourseServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    public CourseServiceImpl() {
+        this.courseRepository = new CourseRepository();
     }
 
     @Override
     public void addCourse(Course course) {
-
-    }
-
-    @Override
-    public Course removeCourse(Long courseId) {
-        return null;
+        this.courseRepository.addCourse(course);
     }
 
     @Override
     public Course getCourseById(Long courseId) {
-        return null;
+        return this.courseRepository.getCourseById(courseId);
     }
 
     @Override
     public boolean updateCourse(Course course) {
+        Course existingCourse = this.courseRepository.getCourseById(course.getId());
+        if (existingCourse != null) {
+            existingCourse.setCourseName(course.getCourseName());
+            existingCourse.setDescription(course.getDescription());
+            existingCourse.setActive(course.isActive());
+            return true;
+        }
         return false;
     }
 
     @Override
     public List<Course> getAllCourses() {
-        return List.of();
+        return this.courseRepository.getCourses();
     }
 
     @Override
     public boolean setCourseActiveStatus(Long courseId, boolean isActive) {
-        return false;
+        return this.courseRepository.updateCourseStatus(courseId, isActive);
     }
 }

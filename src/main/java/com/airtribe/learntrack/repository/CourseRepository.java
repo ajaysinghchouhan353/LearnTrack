@@ -35,12 +35,13 @@ public class CourseRepository {
         return null;
     }
 
-    public void updateCourseStatus(Long courseId, boolean status) {
+    public boolean updateCourseStatus(Long courseId, boolean status) {
         for (Course course : courses) {
             if (course.getId().equals(courseId)) {
                 course.setActive(status);
-                break;
+                return true;
             }
         }
+        return false;
     }
 }

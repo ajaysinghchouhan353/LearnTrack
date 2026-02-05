@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface IStudentService {
     void addStudent(Student student);
-    Student removeStudent(Long studentId);
     Student getStudentById(Long studentId);
     boolean updateStudent(Student student);
     List<Student> getAllStudents();

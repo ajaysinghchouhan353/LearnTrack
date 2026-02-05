@@ -1,35 +1,36 @@
 package com.airtribe.learntrack.entity;
 
 import com.airtribe.learntrack.enums.EnrollmentStatus;
+import com.airtribe.learntrack.utils.IdGenerator;
 
 public class Enrollment {
-    private String id;
+    private Long id;
     private Student student;
     private Course course;
     private String enrollmentDate;
     private EnrollmentStatus status;
 
     public Enrollment() {
-        this.id = "";
+        this.id = 0L;
         this.student = null;
         this.course = null;
         this.enrollmentDate = "";
         this.status = EnrollmentStatus.ACTIVE;
     }
 
-    public Enrollment(String id, Student student, Course course, String enrollmentDate, EnrollmentStatus status) {
-        this.id = id;
+    public Enrollment(Student student, Course course, String enrollmentDate) {
+        this.id = IdGenerator.getNextEnrollmentId();
         this.student = student;
         this.course = course;
         this.enrollmentDate = enrollmentDate;
         this.status = status;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

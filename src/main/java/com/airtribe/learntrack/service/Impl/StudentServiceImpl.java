@@ -10,37 +10,32 @@ public class StudentServiceImpl implements IStudentService {
 
     private StudentRepository studentRepository;
 
-    StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
+    public StudentServiceImpl() {
+        this.studentRepository = new StudentRepository();
     }
 
     @Override
     public void addStudent(Student student) {
-
-    }
-
-    @Override
-    public Student removeStudent(Long studentId) {
-        return null;
+        this.studentRepository.addStudent(student);
     }
 
     @Override
     public Student getStudentById(Long studentId) {
-        return null;
+        return this.studentRepository.getStudentById(studentId);
     }
 
     @Override
     public boolean updateStudent(Student student) {
-        return false;
+        return this.studentRepository.updateStudent(student);
     }
 
     @Override
     public List<Student> getAllStudents() {
-        return List.of();
+        return this.studentRepository.getStudents();
     }
 
     @Override
     public boolean setStudentActiveStatus(Long studentId, boolean isActive) {
-        return false;
+        return this.studentRepository.updateStudentStatus(studentId, isActive);
     }
 }

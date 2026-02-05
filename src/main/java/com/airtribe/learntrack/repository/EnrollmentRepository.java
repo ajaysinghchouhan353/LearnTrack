@@ -18,24 +18,20 @@ public class EnrollmentRepository {
         enrollments.add(enrollment);
     }
 
-    public void removeEnrollment(Enrollment enrollment) {
-        enrollments.remove(enrollment);
-    }
-
     public void updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus) {
         enrollment.setStatus(newStatus);
     }
 
-    public Enrollment findEnrollmentByStudentId(Student studentID) {
+    public Enrollment findEnrollmentByStudentId(Student student) {
         for (Enrollment enrollment : enrollments) {
-            if (enrollment.getStudent().equals(studentID)) {
+            if (enrollment.getStudent().equals(student)) {
                 return enrollment;
             }
         }
         return null;
     }
 
-    public Enrollment findEnrollmentByCourseId(String courseID) {
+    public Enrollment findEnrollmentByCourseId(Long courseID) {
         for (Enrollment enrollment : enrollments) {
             if (enrollment.getCourseID().equals(courseID)) {
                 return enrollment;

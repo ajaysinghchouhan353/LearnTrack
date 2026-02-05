@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface ICourseService {
     void addCourse(Course course);
-    Course removeCourse(Long courseId);
     Course getCourseById(Long courseId);
     boolean updateCourse(Course course);
     List<Course> getAllCourses();

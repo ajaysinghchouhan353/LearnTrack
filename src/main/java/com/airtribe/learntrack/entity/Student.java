@@ -16,17 +16,27 @@ public class Student extends Person{
         this.courseEnrolled = "";
     }
 
+    public Student(String name, int age) {
+        super(name, age);
+        this.StudentID = IdGenerator.getNextStudentId();
+        this.courseEnrolled = "";
+    }
+
     public Student(String name, int age, String courseEnrolled) {
         super(name, age);
         this.StudentID = IdGenerator.getNextStudentId();
         this.courseEnrolled = courseEnrolled;
     }
 
-    public Student(String name, int age, String email, Long studentID, String courseEnrolled, int batch) {
+    public Student(String name, int age, String email, String courseEnrolled, int batch) {
         this(name, age, courseEnrolled);
         this.setEmail(email);
         this.batch = Year.now().getValue();
         this.active = true;
+    }
+
+    public void setName(String name) {
+        super.setFirstAndLastName(name);
     }
 
     public Long getStudentID() {

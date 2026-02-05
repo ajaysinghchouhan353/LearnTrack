@@ -23,7 +23,7 @@ public class Person {
         this.email = email;
     }
 
-    private void setFirstAndLastName(String name) {
+    public void setFirstAndLastName(String name) {
         String[] str = name.split(" ");
         this.firstName = str[0];
         this.lastName = str.length > 1 ? str[1] : "";

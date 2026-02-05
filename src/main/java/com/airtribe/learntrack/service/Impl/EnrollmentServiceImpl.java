@@ -1,6 +1,8 @@
 package com.airtribe.learntrack.service.Impl;
 
+import com.airtribe.learntrack.entity.Course;
 import com.airtribe.learntrack.entity.Enrollment;
+import com.airtribe.learntrack.entity.Student;
 import com.airtribe.learntrack.enums.EnrollmentStatus;
 import com.airtribe.learntrack.repository.EnrollmentRepository;
 import com.airtribe.learntrack.service.IEnrollmentService;
@@ -11,22 +13,28 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
 
     private EnrollmentRepository enrollmentRepository;
 
-    EnrollmentServiceImpl(EnrollmentRepository enrollmentRepository) {
-        this.enrollmentRepository = enrollmentRepository;
+    public EnrollmentServiceImpl() {
+        this.enrollmentRepository = new EnrollmentRepository();
     }
 
     @Override
-    public void enrollStudentInCourse(Enrollment enrollment) {
-
+    public void enrollStudentInCourse(Student student, Course course, String enrollmentDate) {
+        Enrollment enrollment = new Enrollment(student, course, enrollmentDate);
+        this.enrollmentRepository.addEnrollment(enrollment);
     }
 
     @Override
-    public List<Enrollment> viewEnrollmentsByStudent(Long studentId) {
-        return List.of();
+    public Enrollment viewEnrollmentsByStudent(Student student) {
+        return this.enrollmentRepository.findEnrollmentByStudentId(student);
     }
 
     @Override
-    public boolean setEnrollmentStatus(Long enrollmentId, EnrollmentStatus status) {
-        return false;
+    public void setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) {
+        this.enrollmentRepository.updateEnrollmentStatus(enrollment, status);
+    }
+
+    @Override
+    public Enrollment findEnrollmentByCourse(Course course) {
+        return this.enrollmentRepository.findEnrollmentByCourseId(course.getId());
     }
 }

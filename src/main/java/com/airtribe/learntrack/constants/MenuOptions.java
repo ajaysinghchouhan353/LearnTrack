@@ -16,8 +16,10 @@ public final class MenuOptions {
         private Courses() {}
         public static final String ADD = "1";
         public static final String LIST = "2";
-        public static final String DEACTIVATE_COURSE = "3";
-        public static final String BACK = "4";
+        public static final String SEARCH_BY_ID = "3";
+        public static final String UPDATE = "4";
+        public static final String DEACTIVATE_COURSE = "5";
+        public static final String BACK = "6";
     }
 
     public static final class Students {
@@ -25,8 +27,9 @@ public final class MenuOptions {
         public static final String ADD = "1";
         public static final String LIST = "2";
         public static final String SEARCH_BY_ID = "3";
-        public static final String DEACTIVATE_BY_ID = "4";
-        public static final String BACK = "5";
+        public static final String UPDATE = "4";
+        public static final String DEACTIVATE_BY_ID = "5";
+        public static final String BACK = "6";
     }
 
     public static final class Enrollments {

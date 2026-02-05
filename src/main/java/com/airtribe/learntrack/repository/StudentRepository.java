@@ -17,16 +17,6 @@ public class StudentRepository {
         return students;
     }
 
-    public Student removeStudent(Long studentId) {
-        for (Student student : students) {
-            if (student.getStudentID().equals(studentId)) {
-                students.remove(student);
-                return student;
-            }
-        }
-        return null;
-    }
-
     public Student getStudentById(Long studentId) {
         for (Student student : students) {
             if (student.getStudentID().equals(studentId)) {
@@ -36,12 +26,23 @@ public class StudentRepository {
         return null;
     }
 
-    public void updateStudentStatus(Long studentId, boolean status) {
+    public boolean updateStudentStatus(Long studentId, boolean status) {
         for (Student student : students) {
             if (student.getStudentID().equals(studentId)) {
                 student.setActive(status);
-                break;
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean updateStudent(Student student) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getStudentID().equals(student.getStudentID())) {
+                students.set(i, student);
+                return true;
+            }
+        }
+        return false;
     }
 }
