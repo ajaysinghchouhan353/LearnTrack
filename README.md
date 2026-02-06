@@ -194,4 +194,203 @@ Enrollments Menu:
 
 The system supports various enrollment statuses:
 - **ACTIVE**: Student is currently enrolled
--
+
+## Class Diagram
+classDiagram
+    %% Entity Classes
+    class Person {
+        -String firstName
+        -String lastName
+        -int age
+        -String email
+        +Person()
+        +Person(String name, int age)
+        +Person(String name, int age, String email)
+        +setFirstAndLastName(String name)
+        +getName() String
+        +getAge() int
+        +setAge(int age)
+        +getEmail() String
+        +setEmail(String email)
+        +displayInfo() void
+    }
+
+    class Student {
+        -Long StudentID
+        -int batch
+        -boolean active
+        +Student()
+        +Student(String name, int age)
+        +Student(String name, int age, String email)
+        +setName(String name)
+        +getStudentID() Long
+        +setBatch(int batch)
+        +isActive() boolean
+        +setActive(boolean active)
+        +displayInfo() void
+    }
+
+    class Course {
+        -Long id
+        -String courseName
+        -String description
+        -String duration
+        -boolean active
+        +Course(String courseName, String description, String duration)
+        +getId() Long
+        +getCourseName() String
+        +setCourseName(String courseName)
+        +getDescription() String
+        +setDescription(String description)
+        +getDuration() String
+        +setDuration(String duration)
+        +isActive() boolean
+        +setActive(boolean active)
+        +displayCourseInfo() void
+    }
+
+    class Enrollment {
+        -Long id
+        -Student student
+        -Course course
+        -String enrollmentDate
+        -EnrollmentStatus status
+        +Enrollment(Student student, Course course, String enrollmentDate)
+        +getId() Long
+        +getStudent() Student
+        +getCourse() Course
+        +getStatus() EnrollmentStatus
+        +setStatus(EnrollmentStatus status)
+        +displayEnrollmentDetails() void
+    }
+
+    %% Enum
+    class EnrollmentStatus {
+        <<enumeration>>
+        ACTIVE
+        COMPLETED
+        DROPPED
+        PENDING
+    }
+
+    %% Repository Classes
+    class StudentRepository {
+        -List~Student~ students
+        +addStudent(Student student)
+        +getStudents() List~Student~
+        +getDisabledStudents() List~Student~
+        +getStudentById(Long studentId) Student
+        +updateStudentStatus(Long studentId, boolean status) boolean
+        +updateStudent(Student student) boolean
+    }
+
+    class CourseRepository {
+        -List~Course~ courses
+        +addCourse(Course course)
+        +getAllCourses() List~Course~
+        +getAllDisabledCourses() List~Course~
+        +getCourseById(Long courseId) Course
+        +updateCourse(Course course) boolean
+        +updateCourseStatus(Long courseId, boolean status) boolean
+    }
+
+    class EnrollmentRepository {
+        -List~Enrollment~ enrollments
+        +getAllEnrollments() List~Enrollment~
+        +addEnrollment(Enrollment enrollment)
+        +updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus)
+        +findEnrollmentByStudent(Student student) List~Enrollment~
+        +findEnrollmentByCourseId(Long courseId) List~Enrollment~
+        +getEnrollmentById(Long enrollmentId) Enrollment
+    }
+
+    %% Service Interfaces
+    class IStudentService {
+        <<interface>>
+        +addStudent(Student student)
+        +getAllStudents() List~Student~
+        +getAllDisabledStudents() List~Student~
+        +getStudentById(Long studentId) Student
+        +updateStudent(Student student) boolean
+        +updateStudentStatus(Long studentId, boolean status) boolean
+    }
+
+    class ICourseService {
+        <<interface>>
+        +addCourse(Course course)
+        +getAllCourses() List~Course~
+        +getAllDisabledCourses() List~Course~
+        +getCourseById(Long courseId) Course
+        +updateCourse(Course course) boolean
+        +updateCourseStatus(Long courseId, boolean status) boolean
+    }
+
+    class IEnrollmentService {
+        <<interface>>
+        +enrollStudentInCourse(Student student, Course course, String enrollmentDate)
+        +viewEnrollmentsByStudent(Student student) List~Enrollment~
+        +setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status)
+        +findEnrollmentByCourse(Long courseId) List~Enrollment~
+        +getAllEnrollments() List~Enrollment~
+        +getEnrollmentById(Long enrollmentId) Enrollment
+    }
+
+    %% Service Implementations
+    class StudentServiceImpl {
+        -StudentRepository studentRepository
+        +StudentServiceImpl()
+    }
+
+    class CourseServiceImpl {
+        -CourseRepository courseRepository
+        +CourseServiceImpl()
+    }
+
+    class EnrollmentServiceImpl {
+        -EnrollmentRepository enrollmentRepository
+        +EnrollmentServiceImpl()
+    }
+
+    %% Factory and Main
+    class FactoryService {
+        -ICourseService courseService
+        -IStudentService studentService
+        -IEnrollmentService enrollmentService
+        +FactoryService()
+        +getCourseService() ICourseService
+        +getStudentService() IStudentService
+        +getEnrollmentService() IEnrollmentService
+    }
+
+    class Main {
+        +main(String[] args)
+        -displayMenu()
+        -displayMenuCourses()
+        -displayMenuStudents()
+        -displayEnrollmentInfo()
+        +various private helper methods
+    }
+
+    %% Relationships
+    Student --|> Person : extends
+    Enrollment --> Student : has
+    Enrollment --> Course : has
+    Enrollment --> EnrollmentStatus : uses
+
+    StudentRepository --> Student : manages
+    CourseRepository --> Course : manages
+    EnrollmentRepository --> Enrollment : manages
+
+    IStudentService <|.. StudentServiceImpl : implements
+    ICourseService <|.. CourseServiceImpl : implements
+    IEnrollmentService <|.. EnrollmentServiceImpl : implements
+
+    StudentServiceImpl --> StudentRepository : uses
+    CourseServiceImpl --> CourseRepository : uses
+    EnrollmentServiceImpl --> EnrollmentRepository : uses
+
+    FactoryService --> ICourseService : creates
+    FactoryService --> IStudentService : creates
+    FactoryService --> IEnrollmentService : creates
+
+    Main --> FactoryService : uses
