@@ -52,5 +52,6 @@ public class Student extends Person{
         System.out.println("Student ID: " + StudentID);
         System.out.println("Batch: " + batch);
         System.out.println("Active: " + active);
+        System.out.print("----------------------------------");
     }
 }

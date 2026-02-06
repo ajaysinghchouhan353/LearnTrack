@@ -9,5 +9,6 @@ public interface ICourseService {
     Course getCourseById(Long courseId);
     boolean updateCourse(Course course);
     List<Course> getAllCourses();
+    List<Course> getAllDisabledCourses();
     boolean setCourseActiveStatus(Long courseId, boolean isActive);
 }

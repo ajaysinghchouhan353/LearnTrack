@@ -13,4 +13,5 @@ public interface IEnrollmentService {
     void setEnrollmentStatus(Enrollment enrollmentId, EnrollmentStatus status);
     List<Enrollment> findEnrollmentByCourse(Long courseId);
     List<Enrollment> getAllEnrollments();
+    Enrollment getEnrollmentById(Long enrollmentId);
 }

@@ -47,4 +47,13 @@ public class EnrollmentRepository {
         }
         return enrollmentList;
     }
+
+    public Enrollment getEnrollmentById(Long enrollmentId) {
+        for (Enrollment enrollment : enrollments) {
+            if (enrollment.getId().equals(enrollmentId)) {
+                return enrollment;
+            }
+        }
+        return null;
+    }
 }

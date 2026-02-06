@@ -42,4 +42,9 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     public List<Enrollment> getAllEnrollments() {
         return this.enrollmentRepository.getAllEnrollments();
     }
+
+    @Override
+    public Enrollment getEnrollmentById(Long enrollmentId) {
+        return this.enrollmentRepository.getEnrollmentById(enrollmentId);
+    }
 }

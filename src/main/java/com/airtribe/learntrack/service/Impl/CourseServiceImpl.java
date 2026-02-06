@@ -42,6 +42,11 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
+    public List<Course> getAllDisabledCourses() {
+        return this.courseRepository.getDisabledCourses();
+    }
+
+    @Override
     public boolean setCourseActiveStatus(Long courseId, boolean isActive) {
         return this.courseRepository.updateCourseStatus(courseId, isActive);
     }

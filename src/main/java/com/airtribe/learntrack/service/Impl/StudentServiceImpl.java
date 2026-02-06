@@ -35,6 +35,11 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    public List<Student> getAllDisabledStudents() {
+        return this.studentRepository.getDisabledStudents();
+    }
+
+    @Override
     public boolean setStudentActiveStatus(Long studentId, boolean isActive) {
         return this.studentRepository.updateStudentStatus(studentId, isActive);
     }

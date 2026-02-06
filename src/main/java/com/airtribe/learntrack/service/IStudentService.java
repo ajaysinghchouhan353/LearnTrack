@@ -9,5 +9,6 @@ public interface IStudentService {
     Student getStudentById(Long studentId);
     boolean updateStudent(Student student);
     List<Student> getAllStudents();
+    List<Student> getAllDisabledStudents();
     boolean setStudentActiveStatus(Long studentId, boolean isActive);
 }

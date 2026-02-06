@@ -14,8 +14,10 @@ import com.airtribe.learntrack.service.IStudentService;
 import com.airtribe.learntrack.utils.FactoryService;
 import com.airtribe.learntrack.utils.InputValidator;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -30,28 +32,31 @@ public class Main {
             String choice = scanner.nextLine();
             switch (choice) {
                 case MenuOptions.Main.MANAGE_COURSES:
-                    System.out.println("Course management selected.");
+                    System.out.println("----------Course management selected----------");
                     try {
                         displayMenuForCourse(scanner, factory);
                     } catch (Exception e) {
                         System.out.println("Error in course menu: " + e.getMessage());
                     }
+                    System.out.println("--------------------------------------------------");
                     break;
                 case MenuOptions.Main.MANAGE_STUDENTS:
-                    System.out.println("Student management selected.");
+                    System.out.println("----------Student management selected----------");
                     try {
                         displayMenuForStudent(scanner, factory);
                     } catch (Exception e) {
                         System.out.println("Error in student menu: " + e.getMessage());
                     }
+                    System.out.println("--------------------------------------------------");
                     break;
                 case MenuOptions.Main.MANAGE_ENROLLMENTS:
-                    System.out.println("Enrollment management selected.");
+                    System.out.println("----------Enrollment management selected----------");
                     try {
                         displayMenuForEnrollment(scanner, factory);
                     } catch (Exception e) {
                         System.out.println("Error in enrollment menu: " + e.getMessage());
                     }
+                    System.out.println("--------------------------------------------------");
                     break;
                 case MenuOptions.Main.EXIT:
                     System.out.println(AppConstants.EXIT_MESSAGE);
@@ -65,17 +70,16 @@ public class Main {
         scanner.close();
     }
     private static void displayMenu() {
-        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("\nPlease select an option:");
         System.out.println("1. Manage Courses");
         System.out.println("2. Manage Students");
         System.out.println("3. Manage Enrollments");
         System.out.println("4. Exit");
+        System.out.println("------------------------------------------------------------------------------");
         System.out.print("Enter your choice: ");
     }
 
     private static void displayMenuCourses() {
-        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("\nCourses Menu:");
         System.out.println("1. Add course");
         System.out.println("2. List courses");
@@ -83,11 +87,11 @@ public class Main {
         System.out.println("4. Update Course Details");
         System.out.println("5. Deactivate/Activate a course");
         System.out.println("6. Back to main menu");
+        System.out.println("------------------------------------------------------------------------------");
         System.out.print("Choice: ");
     }
 
     private static void displayMenuStudents() {
-        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("\nStudents Menu:");
         System.out.println("1. Add student");
         System.out.println("2. List students");
@@ -95,17 +99,18 @@ public class Main {
         System.out.println("4. Update Student Details");
         System.out.println("5. Deactivate a Student");
         System.out.println("6. Back to main menu");
+        System.out.println("------------------------------------------------------------------------------");
         System.out.print("Choice: ");
     }
 
     private static void displayEnrollmentInfo() {
-        System.out.println("-----------------------------------------------------------------------------");
         System.out.println("\nEnrollments Menu:");
         System.out.println("1. Enroll student in course");
         System.out.println("2. List enrollments for student");
         System.out.println("3. Mark enrollment status for student");
         System.out.println("4. List all enrollments");
         System.out.println("5. Back to main menu");
+        System.out.println("------------------------------------------------------------------------------");
         System.out.print("Choice: ");
     }
 
@@ -116,26 +121,26 @@ public class Main {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case MenuOptions.Courses.ADD:
-                    System.out.println("Add course selected.");
+                    System.out.print("----------Add course selected----------");
                     addCourses(scanner, factory);
                     break;
                 case MenuOptions.Courses.LIST:
-                    System.out.println("List courses selected.");
+                    System.out.print("----------List courses selected----------");
                     displayCourses(factory);
                     break;
 
                 case MenuOptions.Courses.SEARCH_BY_ID:
-                    System.out.println("Search Course By Id.");
+                    System.out.println("----------Search Course By Id----------");
                     displayCourseById(factory);
                     break;
 
                 case MenuOptions.Courses.UPDATE:
-                    System.out.println("Update Course By Id.");
+                    System.out.print("----------Update Course By Id----------");
                     displayCourses(factory);
                     updateCourse(factory);
                     break;
                 case MenuOptions.Courses.DEACTIVATE_COURSE:
-                    System.out.print("Deactivate/Activate course By Id.");
+                    System.out.print("----------Deactivate/Activate course By Id----------");
                     displayCourses(factory);
                     deactivateCourse(scanner, factory);
                     break;
@@ -157,24 +162,25 @@ public class Main {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case MenuOptions.Students.ADD:
-                    System.out.println("Add student selected.");
+                    System.out.println("----------Add student selected----------");
                     addStudent(scanner, factoryService);
+                    System.out.println("--------------------------------------------------");
                     break;
                 case MenuOptions.Students.LIST:
-                    System.out.println("List students selected.");
+                    System.out.println("----------List students selected----------");
                     displayStudent(factoryService);
                     break;
                 case MenuOptions.Students.SEARCH_BY_ID:
-                    System.out.println("Search by Id is selected.");
+                    System.out.println("----------Search by Id is selected----------");
                     displayStudentById(scanner, factoryService);
                     break;
                 case MenuOptions.Students.UPDATE:
-                    System.out.println("Update Student Details By Id.");
+                    System.out.println("----------Update Student Details By Id----------");
                     displayStudent(factoryService);
                     updateStudentById(scanner, factoryService);
                     break;
                 case MenuOptions.Students.DEACTIVATE_BY_ID:
-                    System.out.print("Deactivate/Activate by Id selected.");
+                    System.out.println("----------Deactivate/Activate by Id selected----------");
                     displayStudent(factoryService);
                     deactivateStudentById(scanner, factoryService);
                     break;
@@ -195,23 +201,23 @@ public class Main {
             String choice = scanner.nextLine().trim();
             switch (choice) {
                 case MenuOptions.Enrollments.ENROLL:
-                    System.out.println("Enroll student in course selected.");
-                    displayStudentAndCourses(factory);
+                    System.out.println("----------Enroll student in course selected----------");
+                    displayStudentAndCourses(factory, "Enroll");
                     enrollStudentInCourse(scanner, factory);
                     break;
                 case MenuOptions.Enrollments.LIST_FOR_STUDENT:
-                    System.out.println("List enrollments for student selected.");
-                    displayStudent(factory);
+                    System.out.println("----------List enrollments for student selected----------");
+                    displayStudent(factory, "Enroll");
                     displayEnrollmentByStudent(scanner, factory);
                     break;
                 case MenuOptions.Enrollments.Mark_ENROLLMENT_STATUS:
-                    System.out.println("Mark enrollment status for student selected.");
-                    displayStudent(factory);
+                    System.out.println("----------Mark enrollment status for student selected----------");
+                    displayStudent(factory, "Enroll");
                     updateEnrollmentStatus(scanner, factory);
                     break;
 
                 case MenuOptions.Enrollments.LIST_ALL_ENROLLMENTS:
-                    System.out.println("Display All Enrollments.");
+                    System.out.println("----------Display All Enrollments----------");
                     displayAllEnrollments(factory);
                     break;
                 case MenuOptions.Enrollments.BACK:
@@ -237,16 +243,37 @@ public class Main {
         System.out.print("Course added successfully.\n");
     }
 
-    private static void displayCourses(FactoryService factory) {
+    private static void displayCourses(FactoryService factory) throws EntityNotFoundException {
+        displayCourses(factory, "");
+    }
+
+    private static void displayCourses(FactoryService factory, String enroll) throws EntityNotFoundException {
         ICourseService courseService = factory.getCourseService();
-        System.out.println("\nAvailable Courses:");
-        for (Course course : courseService.getAllCourses()) {
-            course.displayCourseInfo();
+        List<Course> courses = courseService.getAllCourses();
+        if(!courses.isEmpty()) {
+            System.out.print("\nAvailable Courses:");
+            for (Course course : courseService.getAllCourses()) {
+                course.displayCourseInfo();
+            }
+        } else {
+            System.out.println("\nNo courses available.");
+            if(enroll.equalsIgnoreCase("Enroll")) {
+                throw new EntityNotFoundException("Please add courses before " + enroll + " students in courses.");
+            }
+
+        }
+        List<Course> courseList = courseService.getAllDisabledCourses();
+        if(!courseList.isEmpty()) {
+            System.out.print("\nDisabled Courses:");
+            for (Course course : courseList) {
+                course.displayCourseInfo();
+            }
         }
     }
 
     private static void deactivateCourse(Scanner scanner, FactoryService factory) throws InvalidInputException {
         ICourseService courseService = factory.getCourseService();
+        System.out.print("\nCourse Id: ");
         String input = scanner.nextLine().trim();
         try {
             Long courseId = Long.parseLong(input);
@@ -269,6 +296,8 @@ public class Main {
                 } else {
                     System.out.println("Course status remains unchanged.");
                 }
+            } else {
+                throw new EntityNotFoundException("Course not found with ID: " + courseId);
             }
         }catch (NumberFormatException e) {
             throw new InvalidInputException("Invalid course ID. Please enter a valid number.");
@@ -300,12 +329,32 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
         }
     }
 
-    private static void displayStudent(FactoryService factoryService) {
+    private static void displayStudent(FactoryService factoryService) throws EntityNotFoundException {
+        displayStudent(factoryService, "");
+    }
+
+    private static void displayStudent(FactoryService factoryService, String enroll) throws EntityNotFoundException {
         IStudentService studentService = factoryService.getStudentService();
-        System.out.println("\nRegistered Students:");
-        for (Student student : studentService.getAllStudents()) {
-            System.out.println();
-           student.displayInfo();
+        List<Student> students = studentService.getAllStudents();
+        if(!students.isEmpty()) {
+            System.out.print("\nRegistered Students:");
+            for (Student student : students) {
+                System.out.println();
+                student.displayInfo();
+            }
+        } else {
+            System.out.println("\nNo students registered.");
+            if(enroll.equalsIgnoreCase("Enroll")) {
+                throw new EntityNotFoundException("Please add students before " + enroll + " in courses.");
+            }
+        }
+        List<Student> studentList = studentService.getAllDisabledStudents();
+        if(!studentList.isEmpty()) {
+            System.out.print("\nDisabled Students:");
+            for (Student student : studentList) {
+                System.out.println();
+                student.displayInfo();
+            }
         }
      }
 
@@ -331,7 +380,7 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
 
      private static void updateStudentById(Scanner scanner, FactoryService factoryService) throws EntityNotFoundException, InvalidInputException {
         IStudentService studentService = factoryService.getStudentService();
-        System.out.print("Enter student ID to update: ");
+        System.out.print("\nEnter student ID to update: ");
         String input = scanner.nextLine().trim();
         try {
             Long studentId = Long.parseLong(input);
@@ -380,14 +429,13 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
 
     private static void deactivateStudentById(Scanner scanner, FactoryService factoryService) throws InvalidInputException {
         IStudentService studentService = factoryService.getStudentService();
-        System.out.println("Enter Student Id: ");
+        System.out.print("\nEnter Student Id: ");
         String input = scanner.nextLine().trim();
         try {
             Long studentId = Long.parseLong(input);
             Student student = studentService.getStudentById(studentId);
             if (student == null) {
-                System.out.println("Student not found with ID: " + studentId);
-                return;
+                throw new EntityNotFoundException("Student not found with ID: " + studentId);
             }
             System.out.println("Current status: " + (student.isActive() ? "Active" : "Inactive"));
             System.out.print("Do you want to change the status? (yes/no): ");
@@ -440,7 +488,7 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
 
      private static void updateCourse(FactoryService factory) throws InvalidInputException, EntityNotFoundException {
         ICourseService courseService = factory.getCourseService();
-        System.out.print("Enter course ID to update: ");
+        System.out.print("\nEnter course ID to update: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim();
         try {
@@ -480,9 +528,9 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
         }
      }
 
-     private  static void displayStudentAndCourses(FactoryService factory) {
-         displayStudent(factory);
-         displayCourses(factory);
+     private  static void displayStudentAndCourses(FactoryService factory, String enroll) throws EntityNotFoundException {
+         displayStudent(factory, enroll);
+         displayCourses(factory, enroll);
      }
 
      private static void enrollStudentInCourse(Scanner scanner, FactoryService factory) throws EntityNotFoundException, InvalidInputException {
@@ -562,21 +610,23 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
                 return;
             }
             List<Enrollment> enrollment = enrollmentService.viewEnrollmentsByStudent(student);
-            if (enrollment != null) {
-                enrollment.forEach(e -> {
-                    try {
-                        updateEnrollmentDetails(e, scanner, enrollmentService);
-                    } catch (InvalidInputException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                });
-            } else {
-                throw new EntityNotFoundException("Enrollment not found with student Id: " + student.getName());
+            if(enrollment == null) {
+                throw new EntityNotFoundException("No enrollments found for student: " + student.getName());
             }
-        } catch (NumberFormatException e) {
+            enrollment.forEach(Enrollment::displayEnrollmentDetails);
+            System.out.println("Enter Enrollment ID to update status: ");
+            String enrollmentInput = scanner.nextLine().trim();
+            Long enrollmentId = Long.parseLong(enrollmentInput);
+            Enrollment e = enrollmentService.getEnrollmentById(enrollmentId);
+            try {
+                updateEnrollmentDetails(e, scanner, enrollmentService);
+            } catch (InvalidInputException ex) {
+                throw new InvalidInputException(ex.getMessage());
+            }
+        } catch (NumberFormatException ex) {
             throw new InvalidInputException("Invalid enrollment ID. Please enter a valid number.");
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException(e.getMessage());
+        } catch (EntityNotFoundException ex) {
+            throw new EntityNotFoundException(ex.getMessage());
         }
     }
 
@@ -586,7 +636,7 @@ private static void removeEnrollmentsForDeactivatedCourse(Long courseId, Factory
          if (enrollments.isEmpty()) {
              System.out.println("No enrollments found.");
          } else {
-             System.out.println("\nAll Enrollments:");
+             System.out.print("\nAll Enrollments:");
              enrollments.forEach(Enrollment::displayEnrollmentDetails);
          }
      }

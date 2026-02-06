@@ -39,7 +39,6 @@ public class Enrollment {
     }
 
     public void displayEnrollmentDetails() {
-        System.out.println("---------------------------");
         System.out.println("Enrollment ID: " + id);
         System.out.println("Student: " + (student != null ? student.getName() : "N/A"));
         System.out.println("Course: " + (course != null ? course.getCourseName() : "N/A"));

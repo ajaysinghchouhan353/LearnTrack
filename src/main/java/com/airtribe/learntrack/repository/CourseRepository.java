@@ -16,6 +16,10 @@ public class CourseRepository {
         return courses.stream().filter(Course::isActive).toList();
     }
 
+    public List<Course> getDisabledCourses() {
+        return courses.stream().filter(course -> !course.isActive()).toList();
+    }
+
     public Course getCourseById(Long courseId) {
         for (Course course : courses) {
             if (course.getId().equals(courseId) && course.isActive()) {

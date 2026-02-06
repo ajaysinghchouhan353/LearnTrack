@@ -17,6 +17,10 @@ public class StudentRepository {
         return students.stream().filter(Student::isActive).toList();
     }
 
+    public List<Student> getDisabledStudents() {
+        return students.stream().filter(student -> !student.isActive()).toList();
+    }
+
     public Student getStudentById(Long studentId) {
         for (Student student : students) {
             if (student.getStudentID().equals(studentId) && student.isActive()) {

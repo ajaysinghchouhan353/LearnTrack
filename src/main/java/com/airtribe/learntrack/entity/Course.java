@@ -63,5 +63,6 @@ public class Course {
         System.out.println("Description: " + description);
         System.out.println("Duration (weeks): " + durationInWeeks);
         System.out.println("Active: " + active);
+        System.out.print("----------------------------------");
     }
 }
