@@ -32,6 +32,9 @@ public class CourseRepository {
     public boolean updateCourseStatus(Long courseId, boolean status) {
         for (Course course : courses) {
             if (course.getId().equals(courseId)) {
+                if(course.isActive() == status) {
+                    return false;
+                }
                 course.setActive(status);
                 return true;
             }

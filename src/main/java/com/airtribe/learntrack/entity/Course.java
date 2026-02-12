@@ -6,18 +6,18 @@ public class Course {
     private final Long id;
     private String courseName;
     private String description;
-    private String durationInWeeks;
+    private int durationInWeeks;
     private boolean active;
 
     public Course() {
         this.id = 0L;
         this.courseName = "";
         this.description = "";
-        this.durationInWeeks = "";
+        this.durationInWeeks = 0;
         this.active = true;
     }
 
-    public Course(String courseName, String description, String durationInWeeks) {
+    public Course(String courseName, String description, int durationInWeeks) {
         this.id = IdGenerator.getNextCourseId();
         this.courseName = courseName;
         this.description = description;
@@ -45,7 +45,7 @@ public class Course {
         this.description = description;
     }
 
-    public void setDurationInWeeks(String durationInWeeks) {
+    public void setDurationInWeeks(int durationInWeeks) {
         this.durationInWeeks = durationInWeeks;
     }
 

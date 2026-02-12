@@ -3,14 +3,16 @@ package com.airtribe.learntrack.entity;
 import com.airtribe.learntrack.enums.EnrollmentStatus;
 import com.airtribe.learntrack.utils.IdGenerator;
 
+import java.time.LocalDate;
+
 public class Enrollment {
     private final Long id;
     private final Student student;
     private final Course course;
-    private final String enrollmentDate;
+    private final LocalDate enrollmentDate;
     private EnrollmentStatus status;
 
-    public Enrollment(Student student, Course course, String enrollmentDate) {
+    public Enrollment(Student student, Course course, LocalDate enrollmentDate) {
         this.id = IdGenerator.getNextEnrollmentId();
         this.student = student;
         this.course = course;

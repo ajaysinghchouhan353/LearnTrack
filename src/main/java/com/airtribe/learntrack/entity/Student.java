@@ -5,33 +5,31 @@ import com.airtribe.learntrack.utils.IdGenerator;
 import java.time.Year;
 
 public class Student extends Person{
-    private final Long StudentID;
+    private final Long studentId = IdGenerator.getNextStudentId();
     private int batch;
     private boolean active=true;
 
     public Student() {
         super();
-        this.StudentID = 0L;
     }
 
-    public Student(String name, int age) {
-        super(name, age);
-        this.StudentID = IdGenerator.getNextStudentId();
+    public Student(String firstName, String lastName, int age) {
+        super(firstName, lastName, age);
     }
 
-    public Student(String name, int age, String email) {
-        this(name, age);
+    public Student(String firstName, String lastName, int age, String email) {
+        this(firstName, lastName, age);
         this.setEmail(email);
         this.batch = Year.now().getValue();
         this.active = true;
     }
 
     public void setName(String name) {
-        super.setFirstAndLastName(name);
+        super.setFirstName(name);
     }
 
-    public Long getStudentID() {
-        return StudentID;
+    public Long getStudentId() {
+        return studentId;
     }
 
     public void setBatch(int batch) {
@@ -49,9 +47,9 @@ public class Student extends Person{
     @Override
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Student ID: " + StudentID);
+        System.out.println("Student ID: " + studentId);
         System.out.println("Batch: " + batch);
         System.out.println("Active: " + active);
-        System.out.print("----------------------------------");
+        System.out.println("----------------------------------");
     }
 }

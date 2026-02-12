@@ -254,7 +254,7 @@ public Student(String name, int age) {
 }
 
 // In Course.java constructor
-public Course(String courseName, String description, String durationInWeeks) {
+public Course(String courseName, String description, int durationInWeeks) {
     this.id = IdGenerator.getNextCourseId(); // Static method call
     this.courseName = courseName;
     this.description = description;
