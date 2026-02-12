@@ -3,30 +3,29 @@ package com.airtribe.learntrack.entity;
 import com.airtribe.learntrack.utils.IdGenerator;
 
 public class Trainer extends Person{
-    private Long trainerID;
+    private Long trainerId = IdGenerator.getNextTrainerId();
     private String specialization;
     private boolean active;
 
     public Trainer() {
         super();
-        this.trainerID = 0L;
+        this.trainerId = 0L;
         this.specialization = "";
         this.active = true;
     }
 
-    public Trainer(String name, int age, String specialization) {
-        super(name, age);
-        this.trainerID = IdGenerator.getNextTrainerId();
+    public Trainer(String firstName, String lastName, int age, String specialization) {
+        super(firstName, lastName, age);
         this.specialization = specialization;
         this.active = true;
     }
 
-    public Long getTrainerID() {
-        return trainerID;
+    public Long getTrainerId() {
+        return trainerId;
     }
 
-    public void setTrainerID(Long trainerID) {
-        this.trainerID = trainerID;
+    public void setTrainerId(Long trainerId) {
+        this.trainerId = trainerId;
     }
 
     public String getSpecialization() {
@@ -47,7 +46,7 @@ public class Trainer extends Person{
 
     public void displayInfo() {
         super.displayInfo();
-        System.out.println("Trainer ID: " + trainerID);
+        System.out.println("Trainer ID: " + trainerId);
         System.out.println("Specialization: " + specialization);
         System.out.println("Active: " + active);
     }

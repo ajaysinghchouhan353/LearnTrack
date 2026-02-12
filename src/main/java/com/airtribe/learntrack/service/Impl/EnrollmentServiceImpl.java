@@ -7,6 +7,7 @@ import com.airtribe.learntrack.enums.EnrollmentStatus;
 import com.airtribe.learntrack.repository.EnrollmentRepository;
 import com.airtribe.learntrack.service.IEnrollmentService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class EnrollmentServiceImpl implements IEnrollmentService {
@@ -18,7 +19,7 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public void enrollStudentInCourse(Student student, Course course, String enrollmentDate) {
+    public void enrollStudentInCourse(Student student, Course course, LocalDate enrollmentDate) {
         Enrollment enrollment = new Enrollment(student, course, enrollmentDate);
         this.enrollmentRepository.addEnrollment(enrollment);
     }
@@ -29,8 +30,8 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public void setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) {
-        this.enrollmentRepository.updateEnrollmentStatus(enrollment, status);
+    public boolean setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) {
+        return this.enrollmentRepository.updateEnrollmentStatus(enrollment, status);
     }
 
     @Override

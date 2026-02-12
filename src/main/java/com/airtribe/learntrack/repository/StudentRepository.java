@@ -4,26 +4,27 @@ import com.airtribe.learntrack.entity.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentRepository {
 
-    List<Student> students = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     public void addStudent(Student student) {
         students.add(student);
     }
 
     public List<Student> getStudents() {
-        return students.stream().filter(Student::isActive).toList();
+        return students.stream().filter(Student::isActive).collect(Collectors.toList());
     }
 
     public List<Student> getDisabledStudents() {
-        return students.stream().filter(student -> !student.isActive()).toList();
+        return students.stream().filter(student -> !student.isActive()).collect(Collectors.toList());
     }
 
     public Student getStudentById(Long studentId) {
         for (Student student : students) {
-            if (student.getStudentID().equals(studentId) && student.isActive()) {
+            if (student.getStudentId().equals(studentId) && student.isActive()) {
                 return student;
             }
         }
@@ -32,7 +33,7 @@ public class StudentRepository {
 
     public boolean updateStudentStatus(Long studentId, boolean status) {
         for (Student student : students) {
-            if (student.getStudentID().equals(studentId)) {
+            if (student.getStudentId().equals(studentId)) {
                 student.setActive(status);
                 return true;
             }
@@ -42,7 +43,7 @@ public class StudentRepository {
 
     public boolean updateStudent(Student student) {
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getStudentID().equals(student.getStudentID()) && students.get(i).isActive()) {
+            if (students.get(i).getStudentId().equals(student.getStudentId()) && students.get(i).isActive()) {
                 students.set(i, student);
                 return true;
             }

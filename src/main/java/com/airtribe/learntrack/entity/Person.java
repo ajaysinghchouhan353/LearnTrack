@@ -13,24 +13,30 @@ public class Person {
         this.email = "";
     }
 
-    public Person(String name, int age) {
-        setFirstAndLastName(name);
+    public Person(String firstName, String lastName, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
     }
 
-    public Person(String name, int age, String email) {
-        this(name, age);
+    public Person(String firstName, String lastName, int age, String email) {
+        this(firstName, lastName, age);
         this.email = email;
     }
 
-    public void setFirstAndLastName(String name) {
-        String[] str = name.split(" ");
-        this.firstName = str[0];
-        this.lastName = str.length > 1 ? str[1] : "";
+    public String getName() {
+        if(lastName.isEmpty()) {
+            return firstName;
+        }
+        return firstName + " " + lastName;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getAge() {

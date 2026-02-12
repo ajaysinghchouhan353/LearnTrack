@@ -36,7 +36,7 @@ public final class MenuOptions {
         private Enrollments() {}
         public static final String ENROLL = "1";
         public static final String LIST_FOR_STUDENT = "2";
-        public static final String Mark_ENROLLMENT_STATUS = "3";
+        public static final String MARK_ENROLLMENT_STATUS = "3";
         public static final String LIST_ALL_ENROLLMENTS = "4";
         public static final String BACK = "5";
     }

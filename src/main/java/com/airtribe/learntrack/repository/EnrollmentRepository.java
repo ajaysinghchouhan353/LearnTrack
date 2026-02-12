@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class EnrollmentRepository {
-    List<Enrollment> enrollments = new ArrayList<>();
+    private List<Enrollment> enrollments = new ArrayList<>();
 
     public List<Enrollment> getAllEnrollments() {
         return enrollments;
@@ -19,41 +19,32 @@ public class EnrollmentRepository {
         enrollments.add(enrollment);
     }
 
-    public void updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus) {
+    public boolean updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus) {
         for(Enrollment e: enrollments) {
             if(e.getId().equals(enrollment.getId())) {
                 e.setStatus(newStatus);
                 break;
+            } else {
+                System.out.println("Enrollment not found for ID: " + enrollment.getId());
+                return false;
             }
         }
+        return true;
     }
 
     public List<Enrollment> findEnrollmentByStudent(Student student) {
         List<Enrollment> enrollmentList = new ArrayList<>();
-        for (Enrollment enrollment : enrollments) {
-            if (enrollment.getStudent().equals(student)) {
-                enrollmentList.add(enrollment);
-            }
-        }
+        enrollments.stream().filter(enrollment -> enrollment.getStudent().equals(student)).forEach(enrollmentList::add);
         return enrollmentList;
     }
 
     public List<Enrollment> findEnrollmentByCourseId(Long courseId) {
         List<Enrollment> enrollmentList = new ArrayList<>();
-        for (Enrollment enrollment : enrollments) {
-            if (Objects.equals(enrollment.getCourse().getId(), courseId)) {
-                enrollmentList.add(enrollment);
-            }
-        }
+        enrollments.stream().filter(enrollment -> Objects.equals(enrollment.getCourse().getId(), courseId)).forEach(enrollmentList::add);
         return enrollmentList;
     }
 
     public Enrollment getEnrollmentById(Long enrollmentId) {
-        for (Enrollment enrollment : enrollments) {
-            if (enrollment.getId().equals(enrollmentId)) {
-                return enrollment;
-            }
-        }
-        return null;
+        return enrollments.stream().filter(enrollment -> enrollment.getId().equals(enrollmentId)).findAny().orElse(null);
     }
 }
