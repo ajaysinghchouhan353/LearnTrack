@@ -30,8 +30,11 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public boolean setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) {
-        return this.enrollmentRepository.updateEnrollmentStatus(enrollment, status);
+    public void setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) throws com.airtribe.learntrack.exception.EntityNotFoundException {
+        boolean updated = this.enrollmentRepository.updateEnrollmentStatus(enrollment, status);
+        if (!updated) {
+            throw new com.airtribe.learntrack.exception.EntityNotFoundException("Enrollment not found with ID: " + (enrollment != null ? enrollment.getId() : "null"));
+        }
     }
 
     @Override

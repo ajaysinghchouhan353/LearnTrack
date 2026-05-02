@@ -2,7 +2,11 @@ package com.airtribe.learntrack.entity;
 
 import com.airtribe.learntrack.utils.IdGenerator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Course {
+    private static final Logger logger = LoggerFactory.getLogger(Course.class);
     private final Long id;
     private String courseName;
     private String description;
@@ -45,6 +49,10 @@ public class Course {
         this.description = description;
     }
 
+    public int getDurationInWeeks() {
+        return durationInWeeks;
+    }
+
     public void setDurationInWeeks(int durationInWeeks) {
         this.durationInWeeks = durationInWeeks;
     }
@@ -58,11 +66,24 @@ public class Course {
     }
 
     public void displayCourseInfo() {
-        System.out.println("\nCourse ID: " + id);
-        System.out.println("Course Name: " + courseName);
-        System.out.println("Description: " + description);
-        System.out.println("Duration (weeks): " + durationInWeeks);
-        System.out.println("Active: " + active);
-        System.out.print("----------------------------------");
+        logger.info("\nCourse ID: {}", id);
+        logger.info("Course Name: {}", courseName);
+        logger.info("Description: {}", description);
+        logger.info("Duration (weeks): {}", durationInWeeks);
+        logger.info("Active: {}", active);
+        logger.info("----------------------------------");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id != null && id.equals(course.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

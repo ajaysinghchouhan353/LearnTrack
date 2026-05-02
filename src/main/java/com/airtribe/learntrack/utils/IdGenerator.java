@@ -1,44 +1,28 @@
 package com.airtribe.learntrack.utils;
 
 public class IdGenerator {
-    public static Long studentIdCounter;
-    public static Long courseIdCounter;
-    public static Long trainerIdCounter;
-    public static Long enrollmentIdCounter;
+    private static long studentIdCounter = 0L;
+    private static long courseIdCounter = 0L;
+    private static long trainerIdCounter = 0L;
+    private static long enrollmentIdCounter = 0L;
 
-    public static Long getNextStudentId() {
-        if (studentIdCounter == null) {
-            studentIdCounter = 1L;
-        } else {
-            studentIdCounter++;
-        }
+    public static synchronized Long getNextStudentId() {
+        studentIdCounter++;
         return studentIdCounter;
     }
 
-    public static Long getNextCourseId() {
-        if (courseIdCounter == null) {
-            courseIdCounter = 1L;
-        } else {
-            courseIdCounter++;
-        }
+    public static synchronized Long getNextCourseId() {
+        courseIdCounter++;
         return courseIdCounter;
     }
 
-    public static Long getNextTrainerId() {
-        if (trainerIdCounter == null) {
-            trainerIdCounter = 1L;
-        } else {
-            trainerIdCounter++;
-        }
+    public static synchronized Long getNextTrainerId() {
+        trainerIdCounter++;
         return trainerIdCounter;
     }
 
-    public static Long getNextEnrollmentId() {
-        if (enrollmentIdCounter == null) {
-            enrollmentIdCounter = 1L;
-        } else {
-            enrollmentIdCounter++;
-        }
+    public static synchronized Long getNextEnrollmentId() {
+        enrollmentIdCounter++;
         return enrollmentIdCounter;
     }
 }

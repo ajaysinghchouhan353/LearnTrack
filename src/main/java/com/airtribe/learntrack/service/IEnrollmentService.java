@@ -7,11 +7,12 @@ import com.airtribe.learntrack.enums.EnrollmentStatus;
 
 import java.time.LocalDate;
 import java.util.List;
+import com.airtribe.learntrack.exception.EntityNotFoundException;
 
 public interface IEnrollmentService {
     void enrollStudentInCourse(Student student, Course course, LocalDate enrollmentDate);
     List<Enrollment> viewEnrollmentsByStudent(Student student);
-    boolean setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status);
+    void setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status) throws EntityNotFoundException;
     List<Enrollment> findEnrollmentByCourse(Long courseId);
     List<Enrollment> getAllEnrollments();
     Enrollment getEnrollmentById(Long enrollmentId);

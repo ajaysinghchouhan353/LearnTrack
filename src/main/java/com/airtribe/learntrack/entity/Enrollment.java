@@ -41,10 +41,24 @@ public class Enrollment {
     }
 
     public void displayEnrollmentDetails() {
-        System.out.println("Enrollment ID: " + id);
-        System.out.println("Student: " + (student != null ? student.getName() : "N/A"));
-        System.out.println("Course: " + (course != null ? course.getCourseName() : "N/A"));
-        System.out.println("Enrollment Date: " + enrollmentDate);
-        System.out.println("Status: " + status);
+        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Enrollment.class);
+        logger.info("Enrollment ID: {}", id);
+        logger.info("Student: {}", (student != null ? student.getName() : "N/A"));
+        logger.info("Course: {}", (course != null ? course.getCourseName() : "N/A"));
+        logger.info("Enrollment Date: {}", enrollmentDate);
+        logger.info("Status: {}", status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Enrollment that = (Enrollment) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
