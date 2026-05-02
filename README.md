@@ -1,198 +1,396 @@
 # LearnTrack
 
-A console-based Student and Course Management System built with Java 17 and Maven.
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://www.oracle.com/java/)
+[![Maven](https://img.shields.io/badge/Maven-Project-blue.svg)](https://maven.apache.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Overview
+> **LearnTrack** - Your comprehensive Learning Management System for managing students, courses, and enrollments.
 
-LearnTrack is a menu-driven application for managing students, courses, and course enrollments. The system supports:
-- Adding and managing students (active/inactive status)
-- Creating and maintaining courses
-- Enrolling students in courses with status tracking
-- Updating enrollment status (ACTIVE, COMPLETED, CANCELLED)
-- Deactivating courses and viewing enrollment history
+## 📖 Overview
 
-## Project Architecture
+LearnTrack is a console-based Student and Course Management System built with Java. It provides a complete solution for educational institutions to manage their students, courses, and enrollment processes efficiently. The application follows a clean architecture with separation of concerns using repositories, services, and entities.
+
+## ✨ Features
+
+### 👨‍🎓 Student Management
+- **Add Students**: Register new students with personal information
+- **List Students**: View all active students in the system
+- **Search Students**: Find students by their unique ID
+- **Update Students**: Modify student details
+- **Deactivate Students**: Soft delete students from the system
+
+### 📚 Course Management
+- **Add Courses**: Create new courses with details
+- **List Courses**: Display all available courses
+- **Search Courses**: Find courses by ID
+- **Update Courses**: Modify course information
+- **Deactivate Courses**: Remove courses from active listings
+
+### 📝 Enrollment Management
+- **Enroll Students**: Register students in courses
+- **View Enrollments**: List all enrollments or filter by student
+- **Update Status**: Mark enrollment status (Active, Completed, Dropped, etc.)
+- **Track Progress**: Monitor student enrollment history
+
+## 🏗️ Project Structure
 
 ```
-src/main/java/com/airtribe/learntrack/
-├── Main.java                          # Entry point, menu-driven UI
-├── entity/                            # Domain models
-│   ├── Course.java                   # Course entity with equals/hashCode
-│   ├── Student.java                  # Student entity (extends Person)
-│   ├── Enrollment.java               # Enrollment join entity with status
-│   ├── Person.java                   # Base class for Student
-│   └── Trainer.java
-├── repository/                        # In-memory data access layer
-│   ├── CourseRepository.java
-│   ├── StudentRepository.java
-│   └── EnrollmentRepository.java
-├── service/                           # Business logic layer
-│   ├── ICourseService.java
-│   ├── IStudentService.java
-│   ├── IEnrollmentService.java
-│   └── Impl/
-│       ├── CourseServiceImpl.java
-│       ├── StudentServiceImpl.java
-│       └── EnrollmentServiceImpl.java
-├── exception/                         # Custom exceptions
-│   ├── EntityNotFoundException.java
-│   └── InvalidInputException.java
-├── constants/                         # App configuration
-│   ├── AppConstants.java
-│   └── MenuOptions.java
-├── enums/                             # Application enums
-│   └── EnrollmentStatus.java
-└── utils/                             # Utility classes
-    ├── IdGenerator.java              # Synchronized ID generation
-    ├── InputValidator.java           # Email validation
-    └── FactoryService.java           # Service factory/DI
+LearnTrack/
+├── src/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── airtribe/
+│                   └── learntrack/
+│                       ├── Main.java                    # Application entry point
+│                       ├── constants/
+│                       │   ├── AppConstants.java        # Application constants
+│                       │   └── MenuOptions.java         # Menu option constants
+│                       ├── entity/
+│                       │   ├── Person.java              # Base person entity
+│                       │   ├── Student.java             # Student entity
+│                       │   ├── Course.java              # Course entity
+│                       │   └── Enrollment.java          # Enrollment entity
+│                       ├── enums/
+│                       │   └── EnrollmentStatus.java    # Enrollment status enum
+│                       ├── exception/
+│                       │   ├── EntityNotFoundException.java
+│                       │   └── InvalidInputException.java
+│                       ├── repository/
+│                       │   ├── StudentRepository.java   # Student data access
+│                       │   ├── CourseRepository.java    # Course data access
+│                       │   └── EnrollmentRepository.java # Enrollment data access
+│                       ├── service/
+│                       │   ├── IStudentService.java     # Student service interface
+│                       │   ├── ICourseService.java      # Course service interface
+│                       │   ├── IEnrollmentService.java  # Enrollment service interface
+│                       │   └── Impl/
+│                       │       ├── StudentServiceImpl.java
+│                       │       ├── CourseServiceImpl.java
+│                       │       └── EnrollmentServiceImpl.java
+│                       └── utils/
+│                           ├── IdGenerator.java         # ID generation utility
+│                           ├── InputValidator.java      # Input validation utility
+│                           └── FactoryService.java      # Service factory
+├── pom.xml
+└── README.md
 ```
 
-## Build and Run
+## 🛠️ Technology Stack
+
+- **Language**: Java 17
+- **Build Tool**: Maven
+- **Architecture**: Layered Architecture (Entity, Repository, Service, Controller)
+- **Design Patterns**: 
+  - Repository Pattern
+  - Service Layer Pattern
+  - Factory Pattern
+  - Singleton Pattern
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17 (Amazon Corretto or equivalent)
-- Maven 3.8+
 
-### Build
-```bash
-mvn clean package
-```
+- Java Development Kit (JDK) 17 or higher
+- Apache Maven 3.6+
 
-### Run Interactive Mode
-```bash
-mvn exec:java -Dexec.mainClass="com.airtribe.learntrack.Main"
-```
+### Installation
 
-Or directly:
-```bash
-java -cp target/classes com.airtribe.learntrack.Main
-```
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ajaysinghchouhan353/LearnTrack.git
+   cd LearnTrack
+   ```
 
-### Run Tests
-```bash
-mvn test
-```
+2. **Build the project**
+   ```bash
+   mvn clean install
+   ```
 
-## Core Features
+3. **Run the application**
+   ```bash
+   mvn exec:java -Dexec.mainClass="com.airtribe.learntrack.Main"
+   ```
 
-### Student Management
-- Add student (name, email, phone)
-- Retrieve student details by ID
-- View all active/inactive students
-- Deactivate student account
+   Or compile and run directly:
+   ```bash
+   javac -d target/classes src/main/java/com/airtribe/learntrack/Main.java
+   java -cp target/classes com.airtribe.learntrack.Main
+   ```
 
-### Course Management
-- Create course (name, description, duration)
-- Update course details
-- Retrieve course information
-- Deactivate course
+## 📋 Usage
 
-### Enrollment Management
-- Enroll student in course
-- Track enrollment status (ACTIVE/COMPLETED)
-- Update enrollment status
-- View enrollments by student or course
-
-## Technical Stack
-
-- **Language:** Java 17
-- **Build Tool:** Maven
-- **Testing:** JUnit 5 (Jupiter)
-- **Logging:** SLF4J with Simple Binding
-- **Persistence:** In-memory ArrayList repositories
-- **ID Generation:** Thread-safe synchronized counters
-
-## Key Implementation Details
-
-### Error Handling
-Services throw `EntityNotFoundException` for missing entities and `InvalidInputException` for invalid inputs.
-
-### Defensive Programming
-- Repositories return defensive copies of lists to prevent external mutation
-- Null-safe email validation
-- Synchronized ID generation with private counters
-
-### Entity Equality
-All entities (Student, Course, Enrollment) implement `equals()` and `hashCode()` based on their ID fields.
-
-### Logging
-Uses SLF4J facade with Simple binding. Main flow logs include MDC context (`sessionId`, `menu`) for better traceability.
-
-## Test Coverage
-
-| Component | Tests | Status |
-|-----------|-------|--------|
-| Main Input Helper Tests | 7 | ✓ Pass |
-| Integration Layer | 7 | ✓ Pass |
-| Repository Layer | 2 | ✓ Pass |
-| Service Layer | 3 | ✓ Pass |
-| Utility Layer | 2 | ✓ Pass |
-| **Total** | **21** | **✓ Pass** |
-
-## Menu Options
+Upon running the application, you'll be presented with the main menu:
 
 ```
-Main Menu
+Welcome to LearnTrack - Your Learning Management System!
+
+Main Menu:
 1. Manage Courses
 2. Manage Students
 3. Manage Enrollments
 4. Exit
+```
 
-Courses Menu
-1. Add course
-2. List courses
-3. Search course by ID
-4. Update course details
-5. Deactivate/Activate course
-6. Back to main menu
+### Managing Students
 
-Students Menu
+```
+Students Menu:
 1. Add student
 2. List students
-3. Search student by ID
-4. Update student details
-5. Deactivate/Activate student
+3. Search Student by Id
+4. Update Student Details
+5. Deactivate a Student
 6. Back to main menu
+```
 
-Enrollments Menu
+### Managing Courses
+
+```
+Courses Menu:
+1. Add course
+2. List courses
+3. Search Course by Id
+4. Update Course Details
+5. Deactivate a Course
+6. Back to main menu
+```
+
+### Managing Enrollments
+
+```
+Enrollments Menu:
 1. Enroll student in course
 2. List enrollments for student
-3. Mark enrollment status
+3. Mark enrollment status for student
 4. List all enrollments
 5. Back to main menu
 ```
 
-## Usage Example
+## 🔑 Key Components
 
-```
---- Welcome to LearnTrack ---
-Choose an option:
-1. Add Student
-2. Get Student Details
-...
-> 1
-Enter student name: John Doe
-Enter email: john@example.com
-Enter phone: 9876543210
-Student added successfully with ID: 1
+### Entities
+- **Person**: Base class with common attributes (name, email, phone)
+- **Student**: Extends Person, includes student-specific attributes
+- **Course**: Represents a course with title, description, and status
+- **Enrollment**: Links students to courses with enrollment details
 
-...
-> 10
-Enter student ID: 1
-Enter course ID: 1
-Enrolled successfully with ID: 1
-```
+### Services
+- **StudentService**: Business logic for student operations
+- **CourseService**: Business logic for course operations
+- **EnrollmentService**: Business logic for enrollment operations
 
-## Status
+### Repositories
+- **StudentRepository**: Data access layer for students
+- **CourseRepository**: Data access layer for courses
+- **EnrollmentRepository**: Data access layer for enrollments
 
-✓ **Build:** Passing  
-✓ **Tests:** 21/21 passing  
-✓ **Core Features:** Implemented  
-✓ **Logging:** Integrated (SLF4J + MDC context)
+### Utilities
+- **IdGenerator**: Generates unique IDs for entities
+- **InputValidator**: Validates user inputs
+- **FactoryService**: Creates and manages service instances
 
-## Known Limitations
+## 🎯 Enrollment Status
 
-- In-memory storage (data lost on application exit)
-- Single-threaded console UI
-- No persistence layer (database integration not implemented)
+The system supports various enrollment statuses:
+- **ACTIVE**: Student is currently enrolled
+
+## Class Diagram
+classDiagram
+    %% Entity Classes
+    class Person {
+        -String firstName
+        -String lastName
+        -int age
+        -String email
+        +Person()
+        +Person(String name, int age)
+        +Person(String name, int age, String email)
+        +setFirstAndLastName(String name)
+        +getName() String
+        +getAge() int
+        +setAge(int age)
+        +getEmail() String
+        +setEmail(String email)
+        +displayInfo() void
+    }
+
+    class Student {
+        -Long StudentID
+        -int batch
+        -boolean active
+        +Student()
+        +Student(String name, int age)
+        +Student(String name, int age, String email)
+        +setName(String name)
+        +getStudentID() Long
+        +setBatch(int batch)
+        +isActive() boolean
+        +setActive(boolean active)
+        +displayInfo() void
+    }
+
+    class Course {
+        -Long id
+        -String courseName
+        -String description
+        -String duration
+        -boolean active
+        +Course(String courseName, String description, String duration)
+        +getId() Long
+        +getCourseName() String
+        +setCourseName(String courseName)
+        +getDescription() String
+        +setDescription(String description)
+        +getDuration() String
+        +setDuration(String duration)
+        +isActive() boolean
+        +setActive(boolean active)
+        +displayCourseInfo() void
+    }
+
+    class Enrollment {
+        -Long id
+        -Student student
+        -Course course
+        -String enrollmentDate
+        -EnrollmentStatus status
+        +Enrollment(Student student, Course course, String enrollmentDate)
+        +getId() Long
+        +getStudent() Student
+        +getCourse() Course
+        +getStatus() EnrollmentStatus
+        +setStatus(EnrollmentStatus status)
+        +displayEnrollmentDetails() void
+    }
+
+    %% Enum
+    class EnrollmentStatus {
+        <<enumeration>>
+        ACTIVE
+        COMPLETED
+        DROPPED
+        PENDING
+    }
+
+    %% Repository Classes
+    class StudentRepository {
+        -List~Student~ students
+        +addStudent(Student student)
+        +getStudents() List~Student~
+        +getDisabledStudents() List~Student~
+        +getStudentById(Long studentId) Student
+        +updateStudentStatus(Long studentId, boolean status) boolean
+        +updateStudent(Student student) boolean
+    }
+
+    class CourseRepository {
+        -List~Course~ courses
+        +addCourse(Course course)
+        +getAllCourses() List~Course~
+        +getAllDisabledCourses() List~Course~
+        +getCourseById(Long courseId) Course
+        +updateCourse(Course course) boolean
+        +updateCourseStatus(Long courseId, boolean status) boolean
+    }
+
+    class EnrollmentRepository {
+        -List~Enrollment~ enrollments
+        +getAllEnrollments() List~Enrollment~
+        +addEnrollment(Enrollment enrollment)
+        +updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus)
+        +findEnrollmentByStudent(Student student) List~Enrollment~
+        +findEnrollmentByCourseId(Long courseId) List~Enrollment~
+        +getEnrollmentById(Long enrollmentId) Enrollment
+    }
+
+    %% Service Interfaces
+    class IStudentService {
+        <<interface>>
+        +addStudent(Student student)
+        +getAllStudents() List~Student~
+        +getAllDisabledStudents() List~Student~
+        +getStudentById(Long studentId) Student
+        +updateStudent(Student student) boolean
+        +updateStudentStatus(Long studentId, boolean status) boolean
+    }
+
+    class ICourseService {
+        <<interface>>
+        +addCourse(Course course)
+        +getAllCourses() List~Course~
+        +getAllDisabledCourses() List~Course~
+        +getCourseById(Long courseId) Course
+        +updateCourse(Course course) boolean
+        +updateCourseStatus(Long courseId, boolean status) boolean
+    }
+
+    class IEnrollmentService {
+        <<interface>>
+        +enrollStudentInCourse(Student student, Course course, String enrollmentDate)
+        +viewEnrollmentsByStudent(Student student) List~Enrollment~
+        +setEnrollmentStatus(Enrollment enrollment, EnrollmentStatus status)
+        +findEnrollmentByCourse(Long courseId) List~Enrollment~
+        +getAllEnrollments() List~Enrollment~
+        +getEnrollmentById(Long enrollmentId) Enrollment
+    }
+
+    %% Service Implementations
+    class StudentServiceImpl {
+        -StudentRepository studentRepository
+        +StudentServiceImpl()
+    }
+
+    class CourseServiceImpl {
+        -CourseRepository courseRepository
+        +CourseServiceImpl()
+    }
+
+    class EnrollmentServiceImpl {
+        -EnrollmentRepository enrollmentRepository
+        +EnrollmentServiceImpl()
+    }
+
+    %% Factory and Main
+    class FactoryService {
+        -ICourseService courseService
+        -IStudentService studentService
+        -IEnrollmentService enrollmentService
+        +FactoryService()
+        +getCourseService() ICourseService
+        +getStudentService() IStudentService
+        +getEnrollmentService() IEnrollmentService
+    }
+
+    class Main {
+        +main(String[] args)
+        -displayMenu()
+        -displayMenuCourses()
+        -displayMenuStudents()
+        -displayEnrollmentInfo()
+        +various private helper methods
+    }
+
+    %% Relationships
+    Student --|> Person : extends
+    Enrollment --> Student : has
+    Enrollment --> Course : has
+    Enrollment --> EnrollmentStatus : uses
+
+    StudentRepository --> Student : manages
+    CourseRepository --> Course : manages
+    EnrollmentRepository --> Enrollment : manages
+
+    IStudentService <|.. StudentServiceImpl : implements
+    ICourseService <|.. CourseServiceImpl : implements
+    IEnrollmentService <|.. EnrollmentServiceImpl : implements
+
+    StudentServiceImpl --> StudentRepository : uses
+    CourseServiceImpl --> CourseRepository : uses
+    EnrollmentServiceImpl --> EnrollmentRepository : uses
+
+    FactoryService --> ICourseService : creates
+    FactoryService --> IStudentService : creates
+    FactoryService --> IEnrollmentService : creates
+
+    Main --> FactoryService : uses
