@@ -12,7 +12,7 @@ public class EnrollmentRepository {
     private List<Enrollment> enrollments = new ArrayList<>();
 
     public List<Enrollment> getAllEnrollments() {
-        return enrollments;
+        return new java.util.ArrayList<>(enrollments);
     }
 
     public void addEnrollment(Enrollment enrollment) {
@@ -20,21 +20,28 @@ public class EnrollmentRepository {
     }
 
     public boolean updateEnrollmentStatus(Enrollment enrollment, EnrollmentStatus newStatus) {
-        for(Enrollment e: enrollments) {
-            if(e.getId().equals(enrollment.getId())) {
+        boolean found = false;
+        for (Enrollment e : enrollments) {
+            if (e.getId().equals(enrollment.getId())) {
                 e.setStatus(newStatus);
+                found = true;
                 break;
-            } else {
-                System.out.println("Enrollment not found for ID: " + enrollment.getId());
-                return false;
             }
         }
-        return true;
+        if (!found) {
+            System.out.println("Enrollment not found for ID: " + enrollment.getId());
+        }
+        return found;
     }
 
     public List<Enrollment> findEnrollmentByStudent(Student student) {
         List<Enrollment> enrollmentList = new ArrayList<>();
-        enrollments.stream().filter(enrollment -> enrollment.getStudent().equals(student)).forEach(enrollmentList::add);
+        Long sid = student != null ? student.getStudentId() : null;
+        if (sid != null) {
+            enrollments.stream()
+                    .filter(enrollment -> enrollment.getStudent() != null && sid.equals(enrollment.getStudent().getStudentId()))
+                    .forEach(enrollmentList::add);
+        }
         return enrollmentList;
     }
 

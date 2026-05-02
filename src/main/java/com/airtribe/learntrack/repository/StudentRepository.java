@@ -15,16 +15,16 @@ public class StudentRepository {
     }
 
     public List<Student> getStudents() {
-        return students.stream().filter(Student::isActive).collect(Collectors.toList());
+        return students.stream().filter(Student::isActive).collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
     }
 
     public List<Student> getDisabledStudents() {
-        return students.stream().filter(student -> !student.isActive()).collect(Collectors.toList());
+        return students.stream().filter(student -> !student.isActive()).collect(java.util.stream.Collectors.toCollection(java.util.ArrayList::new));
     }
 
     public Student getStudentById(Long studentId) {
         for (Student student : students) {
-            if (student.getStudentId().equals(studentId) && student.isActive()) {
+            if (student.getStudentId().equals(studentId)) {
                 return student;
             }
         }

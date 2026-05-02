@@ -25,15 +25,15 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
-    public boolean updateCourse(Course course) {
+    public void updateCourse(Course course) throws com.airtribe.learntrack.exception.EntityNotFoundException {
         Course existingCourse = this.courseRepository.getCourseById(course.getId());
         if (existingCourse != null) {
             existingCourse.setCourseName(course.getCourseName());
             existingCourse.setDescription(course.getDescription());
             existingCourse.setActive(course.isActive());
-            return true;
+        } else {
+            throw new com.airtribe.learntrack.exception.EntityNotFoundException("Course not found with ID: " + course.getId());
         }
-        return false;
     }
 
     @Override
@@ -47,7 +47,10 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
-    public boolean setCourseActiveStatus(Long courseId, boolean isActive) {
-        return this.courseRepository.updateCourseStatus(courseId, isActive);
+    public void setCourseActiveStatus(Long courseId, boolean isActive) throws com.airtribe.learntrack.exception.EntityNotFoundException {
+        boolean updated = this.courseRepository.updateCourseStatus(courseId, isActive);
+        if (!updated) {
+            throw new com.airtribe.learntrack.exception.EntityNotFoundException("Course not found with ID: " + courseId);
+        }
     }
 }

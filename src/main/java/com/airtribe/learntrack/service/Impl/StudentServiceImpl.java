@@ -25,8 +25,11 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public boolean updateStudent(Student student) {
-        return this.studentRepository.updateStudent(student);
+    public void updateStudent(Student student) throws com.airtribe.learntrack.exception.EntityNotFoundException {
+        boolean updated = this.studentRepository.updateStudent(student);
+        if (!updated) {
+            throw new com.airtribe.learntrack.exception.EntityNotFoundException("Student not found with ID: " + student.getStudentId());
+        }
     }
 
     @Override
@@ -40,7 +43,10 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public boolean setStudentActiveStatus(Long studentId, boolean isActive) {
-        return this.studentRepository.updateStudentStatus(studentId, isActive);
+    public void setStudentActiveStatus(Long studentId, boolean isActive) throws com.airtribe.learntrack.exception.EntityNotFoundException {
+        boolean updated = this.studentRepository.updateStudentStatus(studentId, isActive);
+        if (!updated) {
+            throw new com.airtribe.learntrack.exception.EntityNotFoundException("Student not found with ID: " + studentId);
+        }
     }
 }
