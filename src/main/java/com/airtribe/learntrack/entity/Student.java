@@ -14,15 +14,16 @@ public class Student extends Person{
 
     public Student() {
         super();
+        this.batch = Year.now().getValue();
+        this.active = true;
     }
 
     public Student(String firstName, String lastName, int age) {
-        super(firstName, lastName, age);
+        this(firstName, lastName, age, "");
     }
 
     public Student(String firstName, String lastName, int age, String email) {
-        this(firstName, lastName, age);
-        this.setEmail(email);
+        super(firstName, lastName, age, email == null ? "" : email);
         this.batch = Year.now().getValue();
         this.active = true;
     }
@@ -37,6 +38,10 @@ public class Student extends Person{
 
     public void setBatch(int batch) {
         this.batch = batch;
+    }
+
+    public int getBatch() {
+        return batch;
     }
 
     public boolean isActive() {

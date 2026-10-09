@@ -3,8 +3,9 @@ package com.airtribe.learntrack.service;
 import com.airtribe.learntrack.entity.Student;
 import com.airtribe.learntrack.exception.EntityNotFoundException;
 import com.airtribe.learntrack.service.Impl.StudentServiceImpl;
-import com.airtribe.learntrack.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
+
+import java.time.Year;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,5 +38,14 @@ public class StudentServiceTest {
         } catch (EntityNotFoundException ex) {
             // expected
         }
+    }
+
+    @Test
+    public void newStudentDefaultsShouldUseCurrentBatchAndBlankEmail() {
+        Student student = new Student("Ava", "Lee", 22);
+
+        assertEquals(Year.now().getValue(), student.getBatch());
+        assertEquals("", student.getEmail());
+        assertTrue(student.isActive());
     }
 }
